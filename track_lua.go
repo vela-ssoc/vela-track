@@ -12,7 +12,7 @@ func (tk *track) AssertString() (string, bool)           { return "", false }
 func (tk *track) AssertFunction() (*lua.LFunction, bool) { return nil, false }
 func (tk *track) Peek() lua.LValue                       { return tk }
 
-func (tk *track) pipe(co *lua.LState, pip *pipe.Px) int {
+func (tk *track) pipe(co *lua.LState, pip *pipe.Chains) int {
 	n := len(tk.data)
 	if n == 0 {
 		return 0

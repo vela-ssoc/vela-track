@@ -53,7 +53,7 @@ func HandleExecutable() *command {
 	}
 
 	return &command{
-		exe:  info.Path(),
+		exe:  info.File(),
 		hash: info.Hash,
 	}
 }

@@ -2,7 +2,7 @@ package track
 
 import (
 	"github.com/vela-ssoc/vela-cond"
-	"github.com/vela-ssoc/vela-kit/execpt"
+	"github.com/vela-ssoc/vela-kit/exception"
 	"github.com/vela-ssoc/vela-process"
 	"strconv"
 	"sync/atomic"
@@ -17,7 +17,7 @@ type track struct {
 	file   bool
 	all    bool
 	cnd    *cond.Cond
-	cause  *execpt.Cause
+	cause  *exception.Cause
 	args   string
 }
 
@@ -27,7 +27,7 @@ func (tk *track) pid2str() string {
 
 func (tk *track) lookup() {
 
-	pro, err := process.Pid(int(tk.pid))
+	pro, err := process.Pid(tk.pid)
 	if err != nil {
 		tk.cause.Try("process", err)
 		return
@@ -74,7 +74,7 @@ func newTrackByPid(pid int32, cnd *cond.Cond) *track {
 }
 
 func newTrack(opt ...func(*track)) *track {
-	ov := &track{cause: execpt.New()}
+	ov := &track{cause: exception.New()}
 	for _, fn := range opt {
 		fn(ov)
 	}
